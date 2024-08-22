@@ -1,0 +1,6 @@
+user: what is 2 +w
+AI: The equation "2 + w" is incomplete. It depends on the value of "w". Once "w" is defined, you can add it to 2.
+user: 2+2
+AI: The answer is 4.
+user: 3+3
+AI: The answer is 6.

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with AI Assistant</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Chat with AI Assistant</h1>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <h4>Topics</h4>
+                <ul id="topics-list" class="list-group">
+                    <div class="topic-selector">
+            <label for="topics">Select Topic:</label>
+            <select id="topics">
+                <option value="">-- Select a topic --</option>
+            </select>
+            <button id="load-topic">Load Topic</button>
+            <button id="new-topic">Start New Topic</button>
+        </div>
+                </ul>
+            </div>
+            <div class="col-md-8">
+                <h4 id="current-topic">Chat History</h4>
+                <div id="chat-history" class="card mb-3">
+                    <div class="card-body" style="height: 400px; overflow-y: scroll;">
+                        <!-- Chat history will be displayed here -->
+                    </div>
+                </div>
+                <div class="input-group">
+                    <!-- <input id="message-input" type="text" class="form-control" placeholder="Type your message..."> -->
+                    <textarea id="message-input" type="text" class="form-control"></textarea>
+                    <div class="input-group-append">
+                        <button id="send-button" class="btn btn-primary" type="button">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
