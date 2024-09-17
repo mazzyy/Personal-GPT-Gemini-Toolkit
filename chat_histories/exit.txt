@@ -1,0 +1,2 @@
+user: topic 
+AI: Sure, I can help with a variety of topics. Could you please specify which topic you need assistance with?

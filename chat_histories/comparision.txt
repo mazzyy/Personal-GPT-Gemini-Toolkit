@@ -1,0 +1,12 @@
+user: whats difference between electronic and electrical enginer
+AI: Electrical and electronic engineering both involve the study and applications of electricity. However, they focus on different areas.
+
+1. Electrical Engineering: This is a broad field that focuses on large-scale production and distribution of electrical power. Electrical engineers design and develop high voltage systems and components like motors, power transmission systems, radar and navigation systems, and electrical systems in cars and airplanes.
+
+2. Electronic Engineering: This is a more specialized field that focuses on small-scale electronic systems and often deals with microprocessors, circuit design, telecommunications, and signal processing. Electronic engineers often work with devices like cell phones, computers, fiber optics, and microchips.
+
+In summary, electrical engineering is generally focused more on the large-scale generation and supply of power, while electronic engineering is more about the detailed study and application of electronics.
+user: topic
+AI: Sure, I can help with that. Could you please provide more details? What topic are you interested in discussing?
+user: tell me bla bla
+AI: I'm sorry, but I need more specific information to provide you with accurate assistance. Could you please clarify or provide more details about the topic you're interested in?

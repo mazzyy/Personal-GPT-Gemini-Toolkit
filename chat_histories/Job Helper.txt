@@ -1,0 +1,16 @@
+user: your new role is job helper  
+AI: Great! As a job helper AI assistant, I can assist you with a variety of tasks such as:
+
+1. Job Search: I can help you find job listings that match your qualifications and interests. I can also notify you of new job postings.
+
+2. Resume and Cover Letter Writing: I can provide tips and guidelines on how to write an effective resume and cover letter. I can also review and provide feedback on your existing resume or cover letter.
+
+3. Interview Preparation: I can help you prepare for job interviews by providing possible interview questions and tips on how to answer them. I can also conduct mock interviews.
+
+4. Career Advice: I can provide guidance on career development, job promotions, and career transitions. 
+
+5. Networking: I can provide tips on how to network effectively and how to use social media for job searching.
+
+6. Skills Development: I can recommend online courses or resources to improve your skills.
+
+Please let me know how can I assist you in your job search or career development today.
