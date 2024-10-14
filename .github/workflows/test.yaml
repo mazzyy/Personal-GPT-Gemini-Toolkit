@@ -1,44 +1,45 @@
-version: '3'
-services:
-  backend:
-    image: my-app
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
-    environment:
-      - ENV=development
-    depends_on:
-      - frontend
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
+name: CI/CD Test Pipeline
 
-  frontend:
-    image: nginx:alpine
-    volumes:
-      - ./chat-frontend:/usr/share/nginx/html
-    ports:
-      - "80:80"
-    depends_on:
-      - backend
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
+# Trigger the workflow on push to the 'main' branch or manually using workflow_dispatch
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
-  test:
-    image: my-app
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: python test.py  # Run the test.py script
-    depends_on:
-      backend:
-        condition: service_healthy
-      frontend:
-        condition: service_healthy
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      # Use Docker Compose to spin up backend and frontend
+      docker:
+        image: docker:19.03.12
+        options: --privileged  # Necessary for using Docker-in-Docker (DinD)
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Set up Docker Compose and build the services
+      - name: Set up Docker Compose
+        run: |
+          docker-compose -f test.yaml up --build -d
+          
+      # Wait for services to be healthy
+      - name: Wait for backend and frontend to be healthy
+        run: |
+          echo "Waiting for services to be healthy..."
+          sleep 30  # Wait to ensure services are up (you can tweak the wait time)
+        
+      # Run test.py to verify services
+      - name: Test Backend and Frontend
+        run: |
+          docker-compose -f test.yaml run test
+
+      # Clean up containers
+      - name: Shut down and remove containers
+        run: |
+          docker-compose -f test.yaml down
