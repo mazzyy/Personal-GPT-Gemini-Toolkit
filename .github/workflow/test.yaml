@@ -1,0 +1,44 @@
+version: '3'
+services:
+  backend:
+    image: my-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - ENV=development
+    depends_on:
+      - frontend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  frontend:
+    image: nginx:alpine
+    volumes:
+      - ./chat-frontend:/usr/share/nginx/html
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  test:
+    image: my-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python test.py  # Run the test.py script
+    depends_on:
+      backend:
+        condition: service_healthy
+      frontend:
+        condition: service_healthy
