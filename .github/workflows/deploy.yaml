@@ -30,6 +30,6 @@ jobs:
       # Build the Docker image
       - name: Build backend Docker image
         run: |
-          cd backend
+         
           docker build --build-arg PERSONAL_ACCESS_TOKEN_GITHUB=${{ secrets.PERSONAL_ACCESS_TOKEN_GITHUB }} --build-arg gemini_key=${{ secrets.OPENAI_API_KEY }} -t musawar96/gpt-gemini-toolkit:latest .
       
