@@ -1,45 +1,61 @@
-name: CI/CD Test Pipeline
+name: Backend Test Workflow
 
-# Trigger the workflow on push to the 'main' branch or manually using workflow_dispatch
+# Trigger the workflow on push to the dev branch and manual dispatch
 on:
   push:
     branches:
-      - main
+      - dev
   workflow_dispatch:
 
 jobs:
-  build:
+  backend-test:
     runs-on: ubuntu-latest
 
-    services:
-      # Use Docker Compose to spin up backend and frontend
-      docker:
-        image: docker:19.03.12
-        options: --privileged  # Necessary for using Docker-in-Docker (DinD)
-        volumes:
-          - /var/run/docker.sock:/var/run/docker.sock
-
     steps:
+      # Step 1: Checkout the code
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Set up Docker Compose and build the services
-      - name: Set up Docker Compose
-        run: |
-          docker-compose -f test.yaml up --build -d
-          
-      # Wait for services to be healthy
-      - name: Wait for backend and frontend to be healthy
-        run: |
-          echo "Waiting for services to be healthy..."
-          sleep 30  # Wait to ensure services are up (you can tweak the wait time)
-        
-      # Run test.py to verify services
-      - name: Test Backend and Frontend
-        run: |
-          docker-compose -f test.yaml run test
+      # Step 2: Set up Python environment for running test.py
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.10
 
-      # Clean up containers
-      - name: Shut down and remove containers
+      # Step 3: Install Python dependencies for FastAPI (if needed)
+      - name: Install dependencies
         run: |
-          docker-compose -f test.yaml down
+          cd backend
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r ../requirements.txt
+
+      # Step 4: Build and run the backend in a Docker container
+      - name: Build and run Docker container for backend
+        run: |
+          docker build -t my-fastapi-backend -f Dockerfile .
+          docker run -d -p 8000:8000 my-fastapi-backend
+
+      # Step 5: Wait for the backend to start up
+      - name: Wait for backend to be ready
+        run: sleep 10
+
+      # Step 6: Run test.py to check if the backend is working
+      - name: Run Backend Health Check
+        run: |
+          cd backend
+          python test.py
+
+      # Step 7: Clean up Docker containers
+      - name: Clean up
+        run: docker stop $(docker ps -q) && docker rm $(docker ps -a -q)
+
+      # Step 8: Merge dev into main if tests pass
+      - name: Merge dev into main
+        if: success()  # Only run this step if the previous steps were successful
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git checkout main
+          git merge dev
+          git push origin main
