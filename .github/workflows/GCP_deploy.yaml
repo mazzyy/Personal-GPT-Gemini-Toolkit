@@ -21,15 +21,7 @@ jobs:
         with:
           service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }} # Your GCP service account key in GitHub secrets
           project_id: ${{ secrets.GCP_PROJECT_ID }}                   # GCP project ID in GitHub secrets
-    
-      - name: Set up Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
-        with:
-          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-
-      - name: Authenticate Docker with GAR 
-        run: gcloud auth configure-docker us-east1-docker.pkg.dev
+          export_default_credentials:true
       # Step 3: Authenticate Docker to use Google Artifact Registry (GAR)
       - name: Authenticate Docker with GAR
         run: gcloud auth configure-docker us-east1-docker.pkg.dev
@@ -42,7 +34,7 @@ jobs:
       # Step 5: Push the Docker image to Google Artifact Registry (GAR)
       - name: Push Docker image to GAR
         run: |
-          docker push us-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/personal-gpt-gemini-toolkit/toolkit:v1.0
+          docker push us-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/toolkit:v1.0
 
       # # Step 6: Deploy the Docker image to Google Cloud Run
       # - name: Deploy to Google Cloud Run
