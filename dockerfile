@@ -12,6 +12,8 @@ COPY ./backend /app
 # Copy the chat_histories folder
 COPY ./chat_histories /app/chat_histories
 
+ARG gemini_key
+ARG PERSONAL_ACCESS_TOKEN_GITHUB
 # Copy the requirements and install them
 COPY ./requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
