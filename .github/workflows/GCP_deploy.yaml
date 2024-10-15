@@ -21,7 +21,15 @@ jobs:
         with:
           service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }} # Your GCP service account key in GitHub secrets
           project_id: ${{ secrets.GCP_PROJECT_ID }}                   # GCP project ID in GitHub secrets
+    
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
 
+      - name: Authenticate Docker with GAR 
+        run: gcloud auth configure-docker us-east1-docker.pkg.dev
       # Step 3: Authenticate Docker to use Google Artifact Registry (GAR)
       - name: Authenticate Docker with GAR
         run: gcloud auth configure-docker us-east1-docker.pkg.dev
