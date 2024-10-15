@@ -29,7 +29,7 @@ jobs:
       # Step 4: Build the Docker image
       - name: Build Docker image
         run: |
-          docker build -t us-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/toolkit:v1.0 .
+          docker build -t --build-arg gemini_key=${{ secrets.OPENAI_API_KEY }} --build-arg PERSONAL_ACCESS_TOKEN_GITHUB=${{ secrets.PERSONAL_ACCESS_TOKEN_GITHUB }} us-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/toolkit:v1.0 .
 
       # Step 5: Push the Docker image to Google Artifact Registry (GAR)
       - name: Push Docker image to GAR
