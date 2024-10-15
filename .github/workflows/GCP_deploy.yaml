@@ -34,14 +34,14 @@ jobs:
       # Step 5: Build the Docker image
       - name: Build Docker image
         run: |
-          docker build -t us-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/personal-gpt-gemini-toolkit/toolkit:v1.0 \
+          docker build -t us-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/personal-gpt-gemini-toolkit/toolkit:v1.1 \
           --build-arg gemini_key=${{ secrets.OPENAI_API_KEY }} \
           --build-arg PERSONAL_ACCESS_TOKEN_GITHUB=${{ secrets.PERSONAL_ACCESS_TOKEN_GITHUB }} .
 
       # Step 6: Push the Docker image to Google Artifact Registry (GAR)
       - name: Push Docker image to GAR
         run: |
-          docker push us-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/personal-gpt-gemini-toolkit/toolkit:v1.0
+          docker push us-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/personal-gpt-gemini-toolkit/toolkit:v1.1
 
       # Optional Step 7: Deploy the Docker image to Google Cloud Run (commented out)
       # - name: Deploy to Google Cloud Run
