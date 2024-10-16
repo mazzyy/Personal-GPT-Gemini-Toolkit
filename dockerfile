@@ -12,7 +12,7 @@ COPY ./backend /app
 # Copy the chat_histories folder
 COPY ./chat_histories /app/chat_histories
 
-ARG gemini_key
+ARG OPENAI_API_KEY
 ARG PERSONAL_ACCESS_TOKEN_GITHUB
 # Copy the requirements and install them
 COPY ./requirements.txt /app/requirements.txt
